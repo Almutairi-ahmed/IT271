@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر الكتب - المنتجات</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="cart.js"></script> <!-- Link to the cart logic -->
+</head>
+<body class="bg-gray-600 font-[Tajawal] text-gray-800 rtl">
+
+    <!-- Navigation -->
+    <div class="bg-gray-700 text-white py-4 flex justify-between items-center px-6">
+        <ul class="flex space-x-6">
+            <li><a href="login.html" class="hover:text-[#F9E4B7] font-bold">تسجيل الدخول</a></li>
+            <li><a href="purchasingPage.html" class="hover:text-[#F9E4B7] font-bold">سلة المشتريات</a></li>
+            <li><a href="marktpage.html" class="hover:text-[#F9E4B7] font-bold">المنتجات</a></li>
+            <li><a href="index.html" class="hover:text-[#F9E4B7] font-bold">الرئيسية</a></li>
+        </ul>
+        <h1 class="text-2xl font-bold">متجر الكتب</h1>
+    </div>
+
+    <!-- Products Section -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+        <!-- Product Card 1 -->
+        <div class="bg-gray-400 rounded-lg shadow-lg p-4 text-center transition-all hover:scale-105">
+            <div class="w-full h-64 overflow-hidden rounded-lg mb-4">
+                <img src="images/The_Merry_Adventures_of_Robin_Hood__.webp" alt="كتاب البدايات" class="w-full h-full object-contain">
+            </div>
+            <h2 class="text-xl font-semibold text-[#1C4036] mb-2">كتاب البدايات</h2>
+            <p class="text-gray-600 mb-4">السعر: 30 ريال</p>
+            <button onclick="addToCart(1, 'كتاب البدايات', 30, 'images/The_Merry_Adventures_of_Robin_Hood__.webp')" class="bg-[#2C3E50] text-white px-4 py-2 rounded hover:bg-[#1C4036] transition">
+                أضف إلى السلة
+            </button>
+        </div>
+
+        <!-- Product Card 2 -->
+        <div class="bg-gray-400 rounded-lg shadow-lg p-4 text-center transition-all hover:scale-105">
+            <div class="w-full h-64 overflow-hidden rounded-lg mb-4">
+                <img src="images/s-books-library.net-09222155Gn5E9.webp" alt="رحلة إلى الأعماق" class="w-full h-full object-contain">
+            </div>
+            <h2 class="text-xl font-semibold text-[#1C4036] mb-2">رحلة إلى الأعماق</h2>
+            <p class="text-gray-600 mb-4">السعر: 45 ريال</p>
+            <button onclick="addToCart(2, 'رحلة إلى الأعماق', 45, 'images/s-books-library.net-09222155Gn5E9.webp')" class="bg-[#2C3E50] text-white px-4 py-2 rounded hover:bg-[#1C4036] transition">
+                أضف إلى السلة
+            </button>
+        </div>
+
+        <!-- Product Card 3 -->
+        <div class="bg-gray-400 rounded-lg shadow-lg p-4 text-center transition-all hover:scale-105">
+            <div class="w-full h-64 overflow-hidden rounded-lg mb-4">
+                <img src="images/1321297475.0.x.webp" alt="قصص قصيرة" class="w-full h-full object-contain">
+            </div>
+            <h2 class="text-xl font-semibold text-[#1C4036] mb-2">قصص قصيرة</h2>
+            <p class="text-gray-600 mb-4">السعر: 25 ريال</p>
+            <button onclick="addToCart(3, 'قصص قصيرة', 25, 'images/1321297475.0.x.webp')" class="bg-[#2C3E50] text-white px-4 py-2 rounded hover:bg-[#1C4036] transition">
+                أضف إلى السلة
+            </button>
+        </div>
+
+        <!-- Product Card 4 -->
+        <div class="bg-gray-400 rounded-lg shadow-lg p-4 text-center transition-all hover:scale-105">
+            <div class="w-full h-64 overflow-hidden rounded-lg mb-4">
+                <img src="images/Screenshot 2025-05-01 230324.png" alt="كتاب 4" class="w-full h-full object-contain">
+            </div>
+            <h2 class="text-xl font-semibold text-[#1C4036] mb-2">كتاب المغامرات</h2>
+            <p class="text-gray-600 mb-4">السعر: 25 ريال</p>
+            <button onclick="addToCart(4, 'كتاب المغامرات', 25, 'images/Screenshot 2025-05-01 230324.png')" class="bg-[#2C3E50] text-white px-4 py-2 rounded hover:bg-[#1C4036] transition">
+                أضف إلى السلة
+            </button>
+        </div>
+        <div class="bg-gray-400 rounded-lg shadow-lg p-4 text-center transition-all hover:scale-105">
+            <div class="w-full h-64 overflow-hidden rounded-lg mb-4">
+                <img src="images/Histoire-de-la-Tunisie-moy.webp" alt="كتاب 4" class="w-full h-full object-contain">
+            </div>
+            <h2 class="text-xl font-semibold text-[#1C4036] mb-2">كتاب المغامرات</h2>
+            <p class="text-gray-600 mb-4">السعر: 25 ريال</p>
+            <button onclick="addToCart(5, 'كتاب المغامرات', 25, 'images/Histoire-de-la-Tunisie-moy.webp')" class="bg-[#2C3E50] text-white px-4 py-2 rounded hover:bg-[#1C4036] transition">
+                أضف إلى السلة
+            </button>
+        </div>
+        <div class="bg-gray-400 rounded-lg shadow-lg p-4 text-center transition-all hover:scale-105">
+            <div class="w-full h-64 overflow-hidden rounded-lg mb-4">
+                <img src="images/Book-of-Night-by-Holly-Black-674x1024.webp" alt="كتاب 4" class="w-full h-full object-contain">
+            </div>
+            <h2 class="text-xl font-semibold text-[#1C4036] mb-2">كتاب المغامرات</h2>
+            <p class="text-gray-600 mb-4">السعر: 25 ريال</p>
+            <button onclick="addToCart(6, 'كتاب المغامرات', 25, 'images/Book-of-Night-by-Holly-Black-674x1024.webp')" class="bg-[#2C3E50] text-white px-4 py-2 rounded hover:bg-[#1C4036] transition">
+                أضف إلى السلة
+            </button>
+        </div>
+        <div class="bg-gray-400 rounded-lg shadow-lg p-4 text-center transition-all hover:scale-105">
+            <div class="w-full h-64 overflow-hidden rounded-lg mb-4">
+                <img src="images/stepsTO.webp" alt="كتاب 4" class="w-full h-full object-contain">
+            </div>
+            <h2 class="text-xl font-semibold text-[#1C4036] mb-2">كتاب المغامرات</h2>
+            <p class="text-gray-600 mb-4">السعر: 25 ريال</p>
+            <button onclick="addToCart(7, 'كتاب المغامرات', 25, 'images/stepsTO.webp')" class="bg-[#2C3E50] text-white px-4 py-2 rounded hover:bg-[#1C4036] transition">
+                أضف إلى السلة
+            </button>
+        </div>
+    </div>
+</body>
+</html>
