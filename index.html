@@ -46,6 +46,9 @@
             <img src="images/The_Merry_Adventures_of_Robin_Hood__.webp" alt="Bookstore" class="w-1/4 rounded-lg shadow-lg ml-4">
         </div>
 
+        <div class="mt-8">
+            <button onclick="toggleDarkMode()" class="bg-gray-800 text-white px-4 py-2 rounded-lg">تبديل الوضع</button>
+        </div>
     </main>
 
     
@@ -56,6 +59,15 @@
             <p>&copy; 2025 متجر الكتب. جميع الحقوق محفوظة.</p>
         </div>
     </footer>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('bg-gray-600');
+            document.body.classList.toggle('bg-white');
+            document.body.classList.toggle('text-gray-800');
+            document.body.classList.toggle('text-black');
+        }
+    </script>
 
 </body>
 </html>

@@ -1,13 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
+    <title>تسجيل الدخول - متجر الكتب</title>
+    <style>
+        body {
+            background-color: #f0f4f8;
+            font-family: 'Tajawal', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            direction: rtl;
+        }
+
+        .login-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        .login-container h2 {
+            color: #1C4036;
+            margin-bottom: 20px;
+        }
+
+        .login-container input[type="email"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-container button {
+            background-color: #2C3E50;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-container button:hover {
+            background-color: #1C4036;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    
-    <h1>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum, asperiores. Perspiciatis illo fuga cupiditate necessitatibus laboriosam nemo alias 
-        illum veritatis quisquam consequuntur, sequi quo deserunt mollitia tenetur minus? Laborum, accusantium!</h1>
+
+    <div class="login-container">
+        <h2>تسجيل الدخول</h2>
+        <form onsubmit="return validateLogin()">
+            <input type="email" id="email" placeholder="البريد الإلكتروني" required>
+            <input type="password" id="password" placeholder="كلمة المرور" required>
+            <button type="submit">دخول</button>
+            <div id="error-message" class="error"></div>
+        </form>
+    </div>
+
+    <script>
+        function validateLogin() {
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var errorMessage = document.getElementById("error-message");
+
+            if (email === "" || password === "") {
+                errorMessage.textContent = "يرجى تعبئة جميع الحقول.";
+                return false;
+            } else {
+                errorMessage.textContent = "";
+                // استبدل هذا بالصفحة التي تريد الانتقال إليها
+                window.location.replace("index.html");
+                return false; // لمنع إعادة تحميل الصفحة
+                 
+            }
+        }
+    </script>
+
 </body>
 </html>
