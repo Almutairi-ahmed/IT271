@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول / إنشاء حساب - متجر الكتب</title>
+  <style>
+    body {
+      background-color: rgb(75 85 99 / var(--tw-bg-opacity, 1));
+      font-family: 'Tajawal', sans-serif;
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 500px;
+      text-align: center;
+      margin: 40px auto 20px auto;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .tab-button {
+      background-color: #e0e0e0;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #333;
+      margin: 0 5px;
+      border-radius: 5px;
+    }
+
+    .tab-button.active {
+      background-color: #1C4036;
+      color: white;
+    }
+
+    form {
+      display: none;
+    }
+
+    form.active {
+      display: block;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button[type="submit"] {
+      background-color: #1C4036;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 30%;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button[type="submit"]:hover {
+      background-color: rgb(75 85 99 / var(--tw-bg-opacity, 1));
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .book-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      max-width: 1000px;
+      margin: 0 auto 40px;
+      padding: 20px;
+    }
+
+    .book-gallery img {
+      width: 120px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 5px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+
+    .book-gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    h3.section-title {
+      text-align: center;
+      color: white;
+      margin-top: 40px;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab-button active" onclick="showTab('login')">تسجيل الدخول</button>
+    <button class="tab-button" onclick="showTab('signup')">إنشاء حساب</button>
+  </div>
+
+  <!-- نموذج تسجيل الدخول -->
+  <form id="login" class="active" onsubmit="return validateLogin()">
+    <input type="email" id="login-email" placeholder="البريد الإلكتروني" required>
+    <input type="password" id="login-password" placeholder="كلمة المرور" required>
+    <button type="submit">دخول</button>
+    <div id="login-error" class="error"></div>
+  </form>
+
+  <!-- نموذج إنشاء حساب -->
+  <form id="signup" onsubmit="return validateSignup()">
+    <input type="text" id="signup-name" placeholder="الاسم الكامل" required>
+    <input type="email" id="signup-email" placeholder="البريد الإلكتروني" required>
+    <input type="password" id="signup-password" placeholder="كلمة المرور" required>
+    <input type="password" id="signup-confirm" placeholder="تأكيد كلمة المرور" required>
+    <button type="submit">تسجيل</button>
+    <div id="signup-error" class="error"></div>
+  </form>
+</div>
+
+<h3 class="section-title">بعض من كتبنا المميزة</h3>
+
+<div class="book-gallery">
+  <img src="https://covers.openlibrary.org/b/id/8231856-L.jpg" alt="Book 1">
+  <img src="https://covers.openlibrary.org/b/id/10523300-L.jpg" alt="Book 2">
+  <img src="https://covers.openlibrary.org/b/id/9871496-L.jpg" alt="Book 3">
+  <img src="https://covers.openlibrary.org/b/id/240727-L.jpg" alt="Book 4">
+  <img src="https://covers.openlibrary.org/b/id/5546156-L.jpg" alt="Book 5">
+</div>
+
+<script>
+  function showTab(tabId) {
+    document.querySelectorAll('form').forEach(form => form.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+
+    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+
+  function validateLogin() {
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+    const error = document.getElementById("login-error");
+
+    if (email === "" || password === "") {
+      error.textContent = "يرجى تعبئة جميع الحقول.";
+      return false;
+    }
+
+    error.textContent = "";
+    window.location.replace("index.html");
+    return false;
+  }
+
+  function validateSignup() {
+    const name = document.getElementById("signup-name").value;
+    const email = document.getElementById("signup-email").value;
+    const password = document.getElementById("signup-password").value;
+    const confirm = document.getElementById("signup-confirm").value;
+    const error = document.getElementById("signup-error");
+
+    if (name === "" || email === "" || password === "" || confirm === "") {
+      error.textContent = "يرجى تعبئة جميع الحقول.";
+      return false;
+    }
+
+    if (password !== confirm) {
+      error.textContent = "كلمتا المرور غير متطابقتين.";
+      return false;
+    }
+
+    error.textContent = "";
+    window.location.replace("index.html");
+    return false;
+  }
+</script>
+
+</body>
+</html>
