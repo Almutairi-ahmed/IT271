@@ -68,11 +68,11 @@
 
     <div class="login-container">
         <h2>تسجيل الدخول</h2>
-        <form onsubmit="return validateLogin()">
-            <input type="email" id="email" placeholder="البريد الإلكتروني" required>
-            <input type="password" id="password" placeholder="كلمة المرور" required>
+        <form id="login" class="active" onsubmit="loginUser(event)">
+            <input type="email" id="login-email" placeholder="البريد الإلكتروني" required>
+            <input type="password" id="login-password" placeholder="كلمة المرور" required>
             <button type="submit">دخول</button>
-            <div id="error-message" class="error"></div>
+            <div id="login-error" class="error"></div>
         </form>
     </div>
 
@@ -97,3 +97,4 @@
 
 </body>
 </html>
+``` 

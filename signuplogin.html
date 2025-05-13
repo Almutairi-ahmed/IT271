@@ -124,7 +124,7 @@
   </div>
 
   <!-- نموذج تسجيل الدخول -->
-  <form id="login" class="active" onsubmit="return validateLogin()">
+  <form id="login" onsubmit="loginUser(event)">
     <input type="email" id="login-email" placeholder="البريد الإلكتروني" required>
     <input type="password" id="login-password" placeholder="كلمة المرور" required>
     <button type="submit">دخول</button>
@@ -132,7 +132,7 @@
   </form>
 
   <!-- نموذج إنشاء حساب -->
-  <form id="signup" onsubmit="return validateSignup()">
+  <form id="signup" onsubmit="registerUser(event)">
     <input type="text" id="signup-name" placeholder="الاسم الكامل" required>
     <input type="email" id="signup-email" placeholder="البريد الإلكتروني" required>
     <input type="password" id="signup-password" placeholder="كلمة المرور" required>
@@ -196,6 +196,61 @@
     error.textContent = "";
     window.location.replace("index.html");
     return false;
+  }
+
+  // Function to handle user registration
+  function registerUser(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("signup-name").value;
+    const email = document.getElementById("signup-email").value;
+    const password = document.getElementById("signup-password").value;
+    const confirm = document.getElementById("signup-confirm").value;
+    const error = document.getElementById("signup-error");
+
+    if (password !== confirm) {
+      error.textContent = "كلمتا المرور غير متطابقتين.";
+      return;
+    }
+
+    fetch("auth.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `action=register&email=${email}&password=${password}`
+    })
+    .then(response => response.text())
+    .then(data => {
+      if (data === "registration successful") {
+        alert("تم التسجيل بنجاح.");
+        window.location.replace("index.html");
+      } else {
+        error.textContent = data;
+      }
+    });
+  }
+
+  // Function to handle user login
+  function loginUser(event) {
+    event.preventDefault();
+
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+    const error = document.getElementById("login-error");
+
+    fetch("auth.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `action=login&email=${email}&password=${password}`
+    })
+    .then(response => response.text())
+    .then(data => {
+      if (data === "login successful") {
+        alert("تم تسجيل الدخول بنجاح.");
+        window.location.replace("index.html");
+      } else {
+        error.textContent = data;
+      }
+    });
   }
 </script>
 
