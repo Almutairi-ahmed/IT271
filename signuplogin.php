@@ -1,3 +1,7 @@
+<?php
+// Start session to check for error messages
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -124,20 +128,36 @@
   </div>
 
   <!-- نموذج تسجيل الدخول -->
-  <form id="login" onsubmit="loginUser(event)">
-    <input type="email" id="login-email" placeholder="البريد الإلكتروني" required>
-    <input type="password" id="login-password" placeholder="كلمة المرور" required>
+  <form id="login" method="post" action="auth.php" class="active">
+    <input type="hidden" name="action" value="login">
+    <input type="email" id="login-email" name="email" placeholder="البريد الإلكتروني" required>
+    <input type="password" id="login-password" name="password" placeholder="كلمة المرور" required>
     <button type="submit">دخول</button>
-    <div id="login-error" class="error"></div>
+    <?php if(isset($_GET['error']) && $_GET['error'] == 'login') { ?>
+      <div class="error">خطأ في اسم المستخدم أو كلمة المرور</div>
+    <?php } ?>
+    <?php if(isset($_GET['error']) && $_GET['error'] == 'empty') { ?>
+      <div class="error">يرجى تعبئة جميع الحقول.</div>
+    <?php } ?>
   </form>
 
   <!-- نموذج إنشاء حساب -->
-  <form id="signup" onsubmit="registerUser(event)">
-    <input type="text" id="signup-name" placeholder="الاسم الكامل" required>
-    <input type="email" id="signup-email" placeholder="البريد الإلكتروني" required>
-    <input type="password" id="signup-password" placeholder="كلمة المرور" required>
-    <input type="password" id="signup-confirm" placeholder="تأكيد كلمة المرور" required>
-    <button type="submit">تسجيل</button>
+  <form id="signup" method="post" action="auth.php">
+    <input type="hidden" name="action" value="register">
+    <input type="text" id="signup-name" name="name" placeholder="الاسم الكامل" required>
+    <input type="email" id="signup-email" name="email" placeholder="البريد الإلكتروني" required>
+    <input type="password" id="signup-password" name="password" placeholder="كلمة المرور" required>
+    <input type="password" id="signup-confirm" name="confirm" placeholder="تأكيد كلمة المرور" required>
+    <button type="submit" onclick="return validatePassword()">تسجيل</button>
+    <?php if(isset($_GET['error']) && $_GET['error'] == 'register') { ?>
+      <div class="error">هذا البريد الإلكتروني مسجل بالفعل</div>
+    <?php } ?>
+    <?php if(isset($_GET['error']) && $_GET['error'] == 'password_mismatch') { ?>
+      <div class="error">كلمتا المرور غير متطابقتين.</div>
+    <?php } ?>
+    <?php if(isset($_GET['error']) && $_GET['error'] == 'db_error') { ?>
+      <div class="error">حدث خطأ أثناء التسجيل. يرجى المحاولة مرة أخرى.</div>
+    <?php } ?>
     <div id="signup-error" class="error"></div>
   </form>
 </div>
@@ -153,106 +173,33 @@
 </div>
 
 <script>
+  // Show tab function
   function showTab(tabId) {
     document.querySelectorAll('form').forEach(form => form.classList.remove('active'));
     document.getElementById(tabId).classList.add('active');
 
     document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
+    event.currentTarget.classList.add('active');
   }
 
-  function validateLogin() {
-    const email = document.getElementById("login-email").value;
-    const password = document.getElementById("login-password").value;
-    const error = document.getElementById("login-error");
+  // Make forms visible by default
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('login').classList.add('active');
+  });
 
-    if (email === "" || password === "") {
-      error.textContent = "يرجى تعبئة جميع الحقول.";
-      return false;
-    }
-
-    error.textContent = "";
-    window.location.replace("index.html");
-    return false;
-  }
-
-  function validateSignup() {
-    const name = document.getElementById("signup-name").value;
-    const email = document.getElementById("signup-email").value;
+  // Function to validate password match
+  function validatePassword() {
     const password = document.getElementById("signup-password").value;
     const confirm = document.getElementById("signup-confirm").value;
     const error = document.getElementById("signup-error");
-
-    if (name === "" || email === "" || password === "" || confirm === "") {
-      error.textContent = "يرجى تعبئة جميع الحقول.";
-      return false;
-    }
-
+    
     if (password !== confirm) {
       error.textContent = "كلمتا المرور غير متطابقتين.";
       return false;
     }
-
-    error.textContent = "";
-    window.location.replace("index.html");
-    return false;
-  }
-
-  // Function to handle user registration
-  function registerUser(event) {
-    event.preventDefault();
-
-    const name = document.getElementById("signup-name").value;
-    const email = document.getElementById("signup-email").value;
-    const password = document.getElementById("signup-password").value;
-    const confirm = document.getElementById("signup-confirm").value;
-    const error = document.getElementById("signup-error");
-
-    if (password !== confirm) {
-      error.textContent = "كلمتا المرور غير متطابقتين.";
-      return;
-    }
-
-    fetch("auth.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `action=register&email=${email}&password=${password}`
-    })
-    .then(response => response.text())
-    .then(data => {
-      if (data === "registration successful") {
-        alert("تم التسجيل بنجاح.");
-        window.location.replace("index.html");
-      } else {
-        error.textContent = data;
-      }
-    });
-  }
-
-  // Function to handle user login
-  function loginUser(event) {
-    event.preventDefault();
-
-    const email = document.getElementById("login-email").value;
-    const password = document.getElementById("login-password").value;
-    const error = document.getElementById("login-error");
-
-    fetch("auth.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `action=login&email=${email}&password=${password}`
-    })
-    .then(response => response.text())
-    .then(data => {
-      if (data === "login successful") {
-        alert("تم تسجيل الدخول بنجاح.");
-        window.location.replace("index.html");
-      } else {
-        error.textContent = data;
-      }
-    });
+    return true;
   }
 </script>
 
 </body>
-</html>
+</html> 

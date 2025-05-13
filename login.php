@@ -1,3 +1,7 @@
+<?php
+// Start session to check for error messages
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -61,6 +65,22 @@
             color: red;
             font-size: 14px;
             margin-top: 10px;
+            min-height: 20px;
+        }
+        
+        .signup-link {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        .signup-link a {
+            color: #1C4036;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .signup-link a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -68,33 +88,22 @@
 
     <div class="login-container">
         <h2>تسجيل الدخول</h2>
-        <form id="login" class="active" onsubmit="loginUser(event)">
-            <input type="email" id="login-email" placeholder="البريد الإلكتروني" required>
-            <input type="password" id="login-password" placeholder="كلمة المرور" required>
+        <form id="login-form" method="post" action="auth.php">
+            <input type="hidden" name="action" value="login">
+            <input type="email" id="login-email" name="email" placeholder="البريد الإلكتروني" required>
+            <input type="password" id="login-password" name="password" placeholder="كلمة المرور" required>
             <button type="submit">دخول</button>
-            <div id="login-error" class="error"></div>
+            <?php if(isset($_GET['error']) && $_GET['error'] == 'login') { ?>
+                <div class="error">خطأ في اسم المستخدم أو كلمة المرور</div>
+            <?php } ?>
+            <?php if(isset($_GET['error']) && $_GET['error'] == 'empty') { ?>
+                <div class="error">يرجى تعبئة جميع الحقول.</div>
+            <?php } ?>
+            <div class="signup-link">
+                ليس لديك حساب؟ <a href="signuplogin.php">إنشاء حساب جديد</a>
+            </div>
         </form>
     </div>
 
-    <script>
-        function validateLogin() {
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("password").value;
-            var errorMessage = document.getElementById("error-message");
-
-            if (email === "" || password === "") {
-                errorMessage.textContent = "يرجى تعبئة جميع الحقول.";
-                return false;
-            } else {
-                errorMessage.textContent = "";
-                // استبدل هذا بالصفحة التي تريد الانتقال إليها
-                window.location.replace("index.html");
-                return false; // لمنع إعادة تحميل الصفحة
-                 
-            }
-        }
-    </script>
-
 </body>
-</html>
-``` 
+</html> 
